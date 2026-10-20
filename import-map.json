@@ -1,0 +1,6 @@
+{
+  "imports": {
+    "@game/": "./assets/script/",
+    "@pb/": "./assets/pb/"
+  }
+}

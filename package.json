@@ -1,0 +1,13 @@
+{
+  "name": "juzi-client",
+  "uuid": "2146c777-6f6b-47c9-8849-25a0b93fc810",
+  "creator": {
+    "version": "3.8.5"
+  },
+  "dependencies": {
+    "@bufbuild/protobuf": "^2.11.0",
+    "protobufjs": "^8.0.1",
+    "protoc-gen-ts": "^0.8.7",
+    "ts-proto": "^2.11.6"
+  }
+}

@@ -1,0 +1,6 @@
+{
+    "ExcelPath": "./data/excel/",
+    "MiddleFile": "./data/middle/",
+    "Output": "../assets/resources/tables/",
+    "Clazz": "./clazz/"
+}
