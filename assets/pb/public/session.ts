@@ -35,6 +35,15 @@ export interface S2CReconnect {
   remote: Remote | undefined;
 }
 
+/** Gate 在连接断开时内部转发给 Game，客户端不要发送 */
+export interface C2SDisconnect {
+  userId: string;
+}
+
+export interface S2CDisconnect {
+  code: Code;
+}
+
 function createBaseC2SLogout(): C2SLogout {
   return { userId: "" };
 }
@@ -389,6 +398,142 @@ export const S2CReconnect: MessageFns<S2CReconnect> = {
     message.remote = (object.remote !== undefined && object.remote !== null)
       ? Remote.fromPartial(object.remote)
       : undefined;
+    return message;
+  },
+};
+
+function createBaseC2SDisconnect(): C2SDisconnect {
+  return { userId: "" };
+}
+
+export const C2SDisconnect: MessageFns<C2SDisconnect> = {
+  name: "C2SDisconnect",
+  encode(message: C2SDisconnect, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.userId !== "") {
+      writer.uint32(10).string(message.userId);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): C2SDisconnect {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const previousRecursionDepth = (reader as any).__tsProtoDecodeDepth ?? 0;
+    if (previousRecursionDepth >= 100) {
+      throw new globalThis.Error("protobuf decode recursion limit exceeded");
+    }
+    (reader as any).__tsProtoDecodeDepth = previousRecursionDepth + 1;
+    try {
+      const end = length === undefined ? reader.len : reader.pos + length;
+      const message = createBaseC2SDisconnect();
+      while (reader.pos < end) {
+        const tag = reader.uint32();
+        switch (tag >>> 3) {
+          case 1: {
+            if (tag !== 10) {
+              break;
+            }
+
+            message.userId = reader.string();
+            continue;
+          }
+        }
+        if ((tag & 7) === 4 || tag === 0) {
+          break;
+        }
+        reader.skip(tag & 7);
+      }
+      return message;
+    } finally {
+      (reader as any).__tsProtoDecodeDepth = previousRecursionDepth;
+    }
+  },
+
+  fromJSON(object: any): C2SDisconnect {
+    return { userId: isSet(object.userId) ? globalThis.String(object.userId) : "" };
+  },
+
+  toJSON(message: C2SDisconnect): unknown {
+    const obj: any = {};
+    if (message.userId !== "") {
+      obj.userId = message.userId;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<C2SDisconnect>, I>>(base?: I): C2SDisconnect {
+    return C2SDisconnect.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<C2SDisconnect>, I>>(object: I): C2SDisconnect {
+    const message = createBaseC2SDisconnect();
+    message.userId = object.userId ?? "";
+    return message;
+  },
+};
+
+function createBaseS2CDisconnect(): S2CDisconnect {
+  return { code: 0 };
+}
+
+export const S2CDisconnect: MessageFns<S2CDisconnect> = {
+  name: "S2CDisconnect",
+  encode(message: S2CDisconnect, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.code !== 0) {
+      writer.uint32(8).int32(message.code);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): S2CDisconnect {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const previousRecursionDepth = (reader as any).__tsProtoDecodeDepth ?? 0;
+    if (previousRecursionDepth >= 100) {
+      throw new globalThis.Error("protobuf decode recursion limit exceeded");
+    }
+    (reader as any).__tsProtoDecodeDepth = previousRecursionDepth + 1;
+    try {
+      const end = length === undefined ? reader.len : reader.pos + length;
+      const message = createBaseS2CDisconnect();
+      while (reader.pos < end) {
+        const tag = reader.uint32();
+        switch (tag >>> 3) {
+          case 1: {
+            if (tag !== 8) {
+              break;
+            }
+
+            message.code = reader.int32() as any;
+            continue;
+          }
+        }
+        if ((tag & 7) === 4 || tag === 0) {
+          break;
+        }
+        reader.skip(tag & 7);
+      }
+      return message;
+    } finally {
+      (reader as any).__tsProtoDecodeDepth = previousRecursionDepth;
+    }
+  },
+
+  fromJSON(object: any): S2CDisconnect {
+    return { code: isSet(object.code) ? codeFromJSON(object.code) : 0 };
+  },
+
+  toJSON(message: S2CDisconnect): unknown {
+    const obj: any = {};
+    if (message.code !== 0) {
+      obj.code = codeToJSON(message.code);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<S2CDisconnect>, I>>(base?: I): S2CDisconnect {
+    return S2CDisconnect.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<S2CDisconnect>, I>>(object: I): S2CDisconnect {
+    const message = createBaseS2CDisconnect();
+    message.code = object.code ?? 0;
     return message;
   },
 };

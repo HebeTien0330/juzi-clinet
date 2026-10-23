@@ -39,7 +39,7 @@ juzi-clinet/
 │       ├── module/GameInit.ts # 启动入口
 │       └── @type/
 ├── proto/
-│   ├── framework/             # 框架协议，common / public / internal
+│   ├── pb/                    # 框架协议，common / public / internal
 │   ├── game/                  # 可选，同样按三层放置
 │   ├── genPb/genAll.sh
 │   └── tools/
@@ -71,7 +71,7 @@ import { Item } from "@pb/common/item";
 | `common` | `serverConf.proto` | HTTP / WebSocket / Redis / MySQL 服务配置 |
 | `common` | `item.proto` | 背包类型、道具、品质 |
 | `public` | `server.proto` | 传输层信封、`Remote`、切服 |
-| `public` | `session.proto` | 重连、登出 |
+| `public` | `session.proto` | 重连、登出。`C2SDisconnect` 只由服务端在断线时内部转发 |
 | `internal` |  | 服务端内部协议，客户端不生成 |
 
 玩法协议放到 `proto/game/common` 或 `proto/game/public`，`genAll.sh` 会一并编译。引用框架协议时用 `import "common/common.proto"`、`import "public/server.proto"` 这种路径。`session.proto` 里重连回包的 4–6 号字段预留给游戏登录态，不要改已有字段编号。
@@ -145,7 +145,7 @@ python tools/genImagePathMap.py
 export var config = {
     gm: false,
     debug: true,
-    gateAddr: "http://localhost/version/",
+    gateAddr: "http://127.0.0.1:9402/version/",
     version: "0.0.1",
 };
 ```

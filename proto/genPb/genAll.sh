@@ -3,7 +3,7 @@ set -e
 
 cd "$(dirname "$0")"
 
-FRAMEWORK_ROOT="../framework"
+FRAMEWORK_ROOT="../pb"
 GAME_ROOT="../game"
 PB_OUT="../../assets/pb"
 TS_PROTO_PLUGIN="../../node_modules/.bin/protoc-gen-ts_proto"

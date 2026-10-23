@@ -28,3 +28,12 @@ message S2CReconnect {
     string sessionToken = 7;
     protocol.server.Remote remote = 8;
 }
+
+// Gate 在连接断开时内部转发给 Game，客户端不要发送
+message C2SDisconnect {
+    string userId = 1;
+}
+
+message S2CDisconnect {
+    protocol.common.Code code = 1;
+}

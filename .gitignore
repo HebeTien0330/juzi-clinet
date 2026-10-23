@@ -1,3 +1,22 @@
+# OS/editor noise
+.DS_Store
+Thumbs.db
+
+# Cocos Creator generated files
+/library/
+/local/
+/profiles/
+/temp/
+/build/
+/build-*/
+
+# Dependencies
+/node_modules/
+
+# Logs
+*.log
+*.log.*
+
 # Binaries for programs and plugins
 *.exe
 *.exe~
@@ -10,9 +29,3 @@
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
-*.DS_Store
-*/.log
-library/*
-profiles/*
-temp/
-node_modules/
